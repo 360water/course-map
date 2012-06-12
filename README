@@ -1,0 +1,15 @@
+****************************************************************************************************
+Flash Course Map for Clearwater Site Course Listing Navigation
+****************************************************************************************************
+Created for Flash 10.2+ using AS3.
+
+Features include:
+	Pan and zoom
+	Top Bar Menu gives additional listing of all process areas
+	Dots or pins on map display process area when they are hovered over
+	Clicking on a dot holds the hover view with an expanded list of equipment and links to the
+		courses or to zoom in on the process area
+	Double Clicking a dot could be the same as the Zoom button
+	Process diagram view
+	Building highlight for selected process area
+	
