@@ -1,12 +1,11 @@
 ﻿package {
-	import flash.display.MovieClip;	
-	import Classes.Map;
+	import flash.display.MovieClip;
 	
 	public class Main extends MovieClip {
 						
 		// Map object
 		private var map:Map
-		
+				
 		public function Main() {
 			
 			// Create a singleton of the stage

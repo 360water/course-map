@@ -2,7 +2,6 @@
 	import flash.display.Stage;
 	
 	// Singleton class so any other classes can access the stage.
-
 	public class StageManager {
 		
 		// Publicly accessible singleton instance
