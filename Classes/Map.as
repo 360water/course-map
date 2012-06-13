@@ -2,13 +2,17 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import fl.transitions.Zoom;
 	
 	public class Map extends MovieClip {
 					
 		public function Map() {
-			// Create a new pan object
+			// Add pannign and zooming to the map
 			var pan:Pan = new Pan(this);
-			addChild(pan);			
+			var zoom:Zoom = new Zoom(this);
+			
+			
+			
 		}
 	}
 	
