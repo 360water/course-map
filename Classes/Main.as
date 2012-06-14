@@ -5,6 +5,9 @@
 						
 		// Map object
 		private var map:Map
+		
+		// Controls
+		public var controls:Controls;
 				
 		public function Main() {
 			
@@ -13,13 +16,15 @@
 			
 			// Create a singleton of the controls
 			Controls.instance.controls = new Controls;			
+			controls = Controls.instance.controls;
+			controls.x = 5;
+			controls.y = 5;
 			
 			// Create a map object and add it to the stage
 			map = new Map;
 			this.addChild(map);
-			this.addChild(Controls.instance.controls)
-			Controls.instance.controls.x = 10;
-			Controls.instance.controls.y = 10;			
+			this.addChild(controls)
+			
 		}
 
 	}

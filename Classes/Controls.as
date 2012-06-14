@@ -11,10 +11,27 @@
 		// Create the menu object
 		private var menu:Menu;
 		
+		// Create the zoom and pan controls
+		public var panControls:PanControls;
+		public var zoomControls:ZoomControls;
+		
 		// Constructor
-		public function Controls() {
-			
+		public function Controls() {			
 			menu = new Menu;
+			menu.x = 5;
+			menu.y = 5;
+			
+			panControls = new PanControls;
+			panControls.x = 5;
+			panControls.y = 75;
+			
+			zoomControls = new ZoomControls;
+			zoomControls.x = 5;
+			zoomControls.y = 175;
+			
+			
+			this.addChild(panControls);
+			this.addChild(zoomControls);
 			this.addChild(menu)
 		}
 		

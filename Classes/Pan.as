@@ -15,17 +15,18 @@
 		
 		// Stage object
 		private var stage:Stage;
-					
-		// Pan speed modifier (higher is faster)
-		private var speedModifier:Number = 1.5;
 		
-		// Pan modifier for buttons (higher is larger pan)
-		private var panModifier:Number = 25;
-						
+		// Controls object
+		private var controls:Controls;
+
+		// Constructor
 		public function Pan(object:MovieClip) {
 			
 			// Set the stage
 			stage = StageManager.instance.stage;
+			
+			// Set the controls
+			controls = Controls.instance.controls;
 			
 			// Set the pan object
 			panObject = object;
@@ -34,15 +35,11 @@
 			panObject.addEventListener(MouseEvent.MOUSE_MOVE, mouseMovement);			
 			
 			// Set listeners for pan buttons
-			if (Controls.instance.controls.panLeft && 
-				Controls.instance.controls.panRight &&
-				Controls.instance.controls.panUp &&
-				Controls.instance.controls.panDown) {
-				
-				Controls.instance.controls.panLeft.addEventListener(MouseEvent.CLICK, panButtons);
-				Controls.instance.controls.panRight.addEventListener(MouseEvent.CLICK, panButtons);
-				Controls.instance.controls.panUp.addEventListener(MouseEvent.CLICK, panButtons);
-				Controls.instance.controls.panDown.addEventListener(MouseEvent.CLICK, panButtons);
+			if (controls.panControls) {				
+				controls.panControls.panLeft.addEventListener(MouseEvent.CLICK, panButtons);
+				controls.panControls.panRight.addEventListener(MouseEvent.CLICK, panButtons);
+				controls.panControls.panUp.addEventListener(MouseEvent.CLICK, panButtons);
+				controls.panControls.panDown.addEventListener(MouseEvent.CLICK, panButtons);
 			}
 		}
 	
@@ -51,8 +48,8 @@
 			
 			// If the mouse button is still down, adjust object position
 			if (e.buttonDown) {				
-				panObject.x +=  (stage.mouseX - xPos) * speedModifier;
-				panObject.y +=  (stage.mouseY - yPos) * speedModifier;
+				panObject.x +=  (stage.mouseX - xPos) * C.PAN_MOUSE_SPEED;
+				panObject.y +=  (stage.mouseY - yPos) * C.PAN_MOUSE_SPEED;
 				
 				constrainObject();
 			}				
@@ -68,16 +65,16 @@
 			
 			switch(selectedButton) { 
 				case "panLeft": 
-					panObject.x += panObject.scaleX * panModifier;
+					panObject.x += panObject.scaleX * C.PAN_BUTTON_SPEED;
 					break; 
 				case "panRight": 
-					panObject.x -= panObject.scaleX * panModifier;
+					panObject.x -= panObject.scaleX * C.PAN_BUTTON_SPEED;
 					break; 
 				case "panUp": 
-					panObject.y += panObject.scaleY * panModifier;
+					panObject.y += panObject.scaleY * C.PAN_BUTTON_SPEED;
 					break; 
 				case "panDown": 
-					panObject.y -= panObject.scaleY * panModifier;
+					panObject.y -= panObject.scaleY * C.PAN_BUTTON_SPEED;
 					break; 
 			}
 				constrainObject();
