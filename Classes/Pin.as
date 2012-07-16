@@ -1,72 +1,82 @@
 ﻿package  {
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
+	import flash.events.MouseEvent;	
 	
 	public class Pin extends Sprite {
 		
 		private var pinTitle:PinInformation;
 		private var pinCourses:PinInformation;
+				
+		private var pinFrame:int;
+		private var pinLabel:String;
+		private var courses:Array;
+		
+		private var map:Map;
+		
+		public function getPinFrame():int { return pinFrame; }
 
 		public function Pin() {
 			
-			pinTitle = new PinInformation(setPinLabel());
-			pinTitle.x = 10;
-			pinTitle.y = -pinTitle.height / 2;
+			setPinInformation();
 			
-			pinCourses = new PinInformation(null, setPinCourses());
-			pinCourses.x = 10;
+			pinTitle = new PinInformation(pinLabel);
+			pinTitle.x = 10;
+			pinTitle.y = -pinTitle.height / 2;					
+			pinTitle.visible = false;
+			pinTitle.mouseEnabled = false;
+			this.addChild(pinTitle);
+					
+			pinCourses = new PinInformation(null, courses);
+			pinCourses.x = 10;	
 			pinCourses.y = pinTitle.y + pinTitle.height;
-						
+			pinCourses.visible = false;
+			this.addChild(pinCourses);
+			
 			this.addEventListener(MouseEvent.MOUSE_OVER, toggleTitle);
 			this.addEventListener(MouseEvent.MOUSE_OUT, toggleTitle);
 			this.addEventListener(MouseEvent.CLICK, toggleCourses);
-			
 		}
 		
-		private function toggleTitle(e:MouseEvent) {						
-			if (this.contains(pinTitle)) {
-				if (!this.contains(pinCourses)) {
-					this.removeChild(pinTitle);
-				}
-				
-			} else if (!this.contains(pinTitle)) {
-				this.addChild(pinTitle);
+		private function setPinInformation() {	
+			for (var i:int = 0; i < C.MENU_ITEMS.length; i++) {
+				if (C.MENU_ITEMS[i].pin == this.name) {
+					pinFrame = C.MENU_ITEMS[i].highlightFrame;
+					pinLabel = C.MENU_ITEMS[i].itemLabel;
+					courses = C.MENU_ITEMS[i].courses;
+				}				
 			}
-			
-			parent.setChildIndex(this, parent.numChildren - 1);
 		}
 		
-		private function toggleCourses(e:MouseEvent) {
-			if (!this.contains(pinTitle)) {
-				this.addChild(pinTitle);
+		public function toggleTitle(e:MouseEvent) {
+			if (e.target is Pin) {			
+				if (pinTitle.visible == false && e.type == "mouseOver") {
+					pinTitle.visible = true;
+					e.target.parent.setActivePin(this);
+				} else if (pinCourses.visible == false && e.type == "mouseOut") {					
+					pinTitle.visible = false;
+					e.target.parent.setActivePin();
+				}				
 			}			
-			
-			if (!this.contains(pinCourses)) {
-				this.addChild(pinCourses);
-			} else if (this.contains(pinCourses)) {
-				this.removeChild(pinCourses);
-			}
-			parent.setChildIndex(this, parent.numChildren - 1);
+		}		
+		
+		public function toggleCourses(e:MouseEvent) {			
+			if (e.target is Pin) {
+				if (pinCourses.visible == false) {
+					pinCourses.visible = true;
+					if (pinTitle.visible == false) {
+						pinTitle.visible = true;						
+					}					
+				} else {
+					pinCourses.visible = false;
+					pinTitle.visible = false;					
+				}
+			}			
 		}
 		
-		private function setPinLabel():String {
-			for (var i:int = 0; i < C.MENU_ITEMS.length; i++) {
-				if (C.MENU_ITEMS[i].pin == this.name) {
-					return C.MENU_ITEMS[i].itemLabel;	
-				}
-			}
-			return null;
+		public function hideInformation() {
+			pinTitle.visible = false;
+			pinCourses.visible = false;
 		}
-		
-		private function setPinCourses():Array {
-			for (var i:int = 0; i < C.MENU_ITEMS.length; i++) {
-				if (C.MENU_ITEMS[i].pin == this.name) {
-					return C.MENU_ITEMS[i].courses;	
-				}
-			}
-			return null;
-		}
-
 	}
 	
 }

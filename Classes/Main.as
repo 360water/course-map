@@ -18,7 +18,7 @@
 			Controls.instance.controls = new Controls;			
 			controls = Controls.instance.controls;
 			controls.x = 5;
-			controls.y = 5;
+			controls.y = 5;			
 			
 			// Create a map object and add it to the stage
 			map = new Map;

@@ -6,16 +6,24 @@
 		public static const MENU_ITEMS = new Array();
 		MENU_ITEMS.push({itemLabel:"Solids Contact", 
 						 pin:"pinSolidsContact",
-						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps']});
+						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
+						 highlightFrame:1
+						 });
 		MENU_ITEMS.push({itemLabel:"Membranes", 
 						 pin:"pinMembranes",
-						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps']});
+						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
+						 highlightFrame:2
+						 });
 		MENU_ITEMS.push({itemLabel:"GAC", 
 						 pin:"pinGac",
-						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps']});
+						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
+						 highlightFrame:3
+						 });						 
 		MENU_ITEMS.push({itemLabel:"Filters", 
 						 pin:"pinFilters",
-						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps']});		
+						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
+						 highlightFrame:4
+						 });		
 		
 		// Constants for zooming
 		public static const MIN_ZOOM:Number = 1;
