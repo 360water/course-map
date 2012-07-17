@@ -1,6 +1,7 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.display.LoaderInfo;
 	import org.osflash.signals.Signal;
 	
 	public class Main extends MovieClip {
@@ -29,7 +30,13 @@
 			this.addChild(controls);
 			
 			controls.addEventListener(MouseEvent.CLICK, clickHandler);
-			map.activePinChanged.add(activePinHandler)
+			map.activePinChanged.add(activePinHandler);
+			
+			// Get flashvars
+			if (stage.loaderInfo.parameters.id) {
+				map.idPassedIn(int(stage.loaderInfo.parameters.id));				
+			}
+			
 		}
 		
 		private function clickHandler(e:MouseEvent) {

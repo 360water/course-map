@@ -9,23 +9,30 @@
 		MENU_ITEMS.push({itemLabel:"Solids Contact", 
 						 pin:"pinSolidsContact",
 						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
-						 highlightFrame:1
+						 highlightFrame:1,
+						 categoryId:1121
 						 });
 		MENU_ITEMS.push({itemLabel:"Membranes", 
 						 pin:"pinMembranes",
 						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
-						 highlightFrame:2
+						 highlightFrame:2,
+						 categoryId:1122
 						 });
 		MENU_ITEMS.push({itemLabel:"GAC", 
 						 pin:"pinGac",
 						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
-						 highlightFrame:3
+						 highlightFrame:3,
+						 categoryId:1123
 						 });						 
 		MENU_ITEMS.push({itemLabel:"Filters", 
 						 pin:"pinFilters",
 						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
-						 highlightFrame:4
+						 highlightFrame:4,
+						 categoryId:1125
 						 });		
+		
+		// Base URL for Link
+		public static const BASE_URL = "/home/index.php?id=";
 		
 		// Constants for zooming
 		public static const MIN_ZOOM:Number = 1;

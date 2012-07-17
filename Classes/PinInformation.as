@@ -2,12 +2,19 @@
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.events.MouseEvent;
+	import flash.net.*;
 
 	public class PinInformation extends Sprite {
+		
+		private var request:URLRequest = new URLRequest;
+		private var id:int;
 
-		public function PinInformation(title:String = null, courses:Array = null) {
+		public function PinInformation(title:String = null, courses:Array = null, id = null) {
 			
-			this.alpha = 0.9;					
+			this.alpha = 0.9;	
+			
+			// Get id for category link
+			this.id = id;
 			
 			if (title) {				
 				var pinTitle:PinTitle = new PinTitle();
@@ -32,7 +39,8 @@
 		}
 		
 		private function openLink(e:MouseEvent) {
-			trace("open link");
+			request = new URLRequest(C.BASE_URL + String(id));
+			navigateToURL(request, "_self");
 		}
 	}
 }

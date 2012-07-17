@@ -10,11 +10,11 @@
 		private var pinFrame:int;
 		private var pinLabel:String;
 		private var courses:Array;
-		
-		private var map:Map;
-		
+		private var id:int;
+				
 		public function getPinFrame():int { return pinFrame; }
 		public function getPinLabel():String { return pinLabel; }
+		public function getCategoryId():int { return id; }
 
 		public function Pin() {
 			
@@ -27,8 +27,8 @@
 			pinTitle.mouseEnabled = false;
 			this.addChild(pinTitle);
 					
-			pinCourses = new PinInformation(null, courses);
-			pinCourses.x = 10;	
+			pinCourses = new PinInformation(null, courses, id);
+			pinCourses.x = 10;
 			pinCourses.y = pinTitle.y + pinTitle.height;
 			pinCourses.visible = false;
 			this.addChild(pinCourses);			
@@ -40,6 +40,7 @@
 					pinFrame = C.MENU_ITEMS[i].highlightFrame;
 					pinLabel = C.MENU_ITEMS[i].itemLabel;
 					courses = C.MENU_ITEMS[i].courses;
+					id = C.MENU_ITEMS[i].categoryId;
 				}				
 			}
 		}

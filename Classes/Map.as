@@ -140,6 +140,17 @@
 				}
 			}			
 		}
+		
+		// ID was passed in URL
+		public function idPassedIn(id:int) {
+			var pin:Pin;			
+			for (var i:int = 0; i < pins.length; i++) {
+				if (pins[i].getCategoryId() == id) {
+					pin = pins[i];					
+					toggleActivePin(pin, "menu");		
+				}
+			}			
+		}
 	}
 	
 }
