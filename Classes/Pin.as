@@ -14,10 +14,11 @@
 		private var map:Map;
 		
 		public function getPinFrame():int { return pinFrame; }
+		public function getPinLabel():String { return pinLabel; }
 
 		public function Pin() {
 			
-			setPinInformation();
+			setPinInformation();			
 			
 			pinTitle = new PinInformation(pinLabel);
 			pinTitle.x = 10;
@@ -30,11 +31,7 @@
 			pinCourses.x = 10;	
 			pinCourses.y = pinTitle.y + pinTitle.height;
 			pinCourses.visible = false;
-			this.addChild(pinCourses);
-			
-			this.addEventListener(MouseEvent.MOUSE_OVER, toggleTitle);
-			this.addEventListener(MouseEvent.MOUSE_OUT, toggleTitle);
-			this.addEventListener(MouseEvent.CLICK, toggleCourses);
+			this.addChild(pinCourses);			
 		}
 		
 		private function setPinInformation() {	
@@ -47,36 +44,24 @@
 			}
 		}
 		
-		public function toggleTitle(e:MouseEvent) {
-			if (e.target is Pin) {			
-				if (pinTitle.visible == false && e.type == "mouseOver") {
-					pinTitle.visible = true;
-					e.target.parent.setActivePin(this);
-				} else if (pinCourses.visible == false && e.type == "mouseOut") {					
-					pinTitle.visible = false;
-					e.target.parent.setActivePin();
-				}				
-			}			
-		}		
-		
-		public function toggleCourses(e:MouseEvent) {			
-			if (e.target is Pin) {
-				if (pinCourses.visible == false) {
-					pinCourses.visible = true;
-					if (pinTitle.visible == false) {
-						pinTitle.visible = true;						
-					}					
-				} else {
-					pinCourses.visible = false;
-					pinTitle.visible = false;					
-				}
-			}			
+		public function showTitle() {			
+			pinTitle.visible = true;			
 		}
 		
-		public function hideInformation() {
-			pinTitle.visible = false;
-			pinCourses.visible = false;
+		public function hideTitle() {
+			pinTitle.visible = false;			
 		}
-	}
-	
+		
+		public function showCourses() {			
+			pinCourses.visible = true;
+			trace(this.y);
+			if (pinTitle.visible == false) {
+					pinTitle.visible = true;						
+			}
+		}
+		
+		public function hideCourses() {
+			pinCourses.visible = false;			
+		}
+	}	
 }

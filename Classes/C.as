@@ -1,6 +1,8 @@
 ﻿package  {
 	// This file stores all of the constants use throughout the program.
 	public class C {		
+		// Menu Heading
+		public static const MENU_HEADING:String = "Bossier City WTP";
 		
 		// Menu Items
 		public static const MENU_ITEMS = new Array();
@@ -34,6 +36,9 @@
 		// Constants for panning
 		public static const PAN_MOUSE_SPEED:Number = 1.5;		// Higher is faster pan
 		public static const PAN_BUTTON_SPEED:Number = 25;		// Higher is faster pan
+		
+		// Constants for menu opening/closing speed
+		public static const MENU_SPEED:Number = 2.5;				// Lower is faster
 	}
 	
 }
