@@ -8,9 +8,9 @@
 		public static const MENU_ITEMS = new Array();
 		MENU_ITEMS.push({itemLabel:"Solids Contact", 
 						 pin:"pinSolidsContact",
-						 courses:['Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
+						 courses:['Membranes Membranes Membranes Membranes Membranes Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
 						 highlightFrame:1,
-						 categoryId:1121
+						 categoryId:1121 
 						 });
 		MENU_ITEMS.push({itemLabel:"Membranes", 
 						 pin:"pinMembranes",

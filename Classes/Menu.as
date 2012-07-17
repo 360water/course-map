@@ -2,7 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
-	import flash.display.Shape;	
+	import flash.display.Shape;
 
 	public class Menu extends MovieClip {
 
