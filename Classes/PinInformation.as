@@ -103,7 +103,8 @@
 				this.addChild(courseBackground);
 				this.setChildIndex(courseBackground, 0);
 
-				var pinLink = new PinLink  ;
+				var pinLink = new PinLink();
+				pinLink.mouseEnabled = true;
 				pinLink.y = heightSum + 5 - 2;
 				this.addChild(pinLink);
 				pinLink.addEventListener(MouseEvent.CLICK, openLink);

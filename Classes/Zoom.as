@@ -15,7 +15,7 @@
 		private var controls:Controls;							
 			
 		// Constructor
-		public function Zoom(object:MovieClip) {
+		public function Zoom(object:MovieClip) {			
 			// Set the stage
 			stage = StageManager.instance.stage;
 			
@@ -35,31 +35,30 @@
 		}
 		
 		// Detect movement of the mouse wheel
-		private function mouseZoom(e:MouseEvent) {					
-			
-			// Set the initial zoomObject size
-			var tempSizeX:Number = zoomObject.width;
-			var tempSizeY:Number = zoomObject.height;
-			
-			// Scale the zoomObject based on the mouse wheel
-			zoomObject.scaleX += e.delta * C.ZOOM_MOUSE_SPEED;
-			zoomObject.scaleY += e.delta * C.ZOOM_MOUSE_SPEED;
-			
-			// Contrain zoom to min and max values
-			constrainZoom();
-			
-			//zoomObject.scaleChildren();
-			
-			// Move zoomObject so center stays in same place			
-			zoomObject.x = ((2 * stage.mouseX) - (2 * (e.localX * zoomObject.scaleX))) / 2;
-			zoomObject.y = ((2 * stage.mouseY) - (2 * (e.localY * zoomObject.scaleY))) / 2;
-									
-			// Constrain zoomObject to borders of stage
-			if (e.delta < 0) {
-				constrainObject();			
+		private function mouseZoom(e:MouseEvent) {
+			if (e.target is Map) {			
+				// Set the initial zoomObject size
+				var tempSizeX:Number = zoomObject.width;
+				var tempSizeY:Number = zoomObject.height;
+				
+				// Scale the zoomObject based on the mouse wheel
+				zoomObject.scaleX += e.delta * C.ZOOM_MOUSE_SPEED;
+				zoomObject.scaleY += e.delta * C.ZOOM_MOUSE_SPEED;
+				
+				// Contrain zoom to min and max values
+				constrainZoom();
+				
+				// Move zoomObject so center stays in same place
+				zoomObject.x = ((2 * stage.mouseX) - (2 * (e.localX * zoomObject.scaleX))) / 2;
+				zoomObject.y = ((2 * stage.mouseY) - (2 * (e.localY * zoomObject.scaleY))) / 2;
+										
+				// Constrain zoomObject to borders of stage
+				if (e.delta < 0) {
+					constrainObject();			
+				}
+				
+				zoomObject.scaleChildren();
 			}
-			
-			zoomObject.scaleChildren();
 		}
 		
 		// Zoom in with button

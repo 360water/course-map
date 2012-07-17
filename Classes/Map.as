@@ -17,10 +17,6 @@
 			
 			// Create an array with the pins
 			setPins();
-			
-			// Add pan and zooming to the map
-			var pan:Pan = new Pan(this);
-			var zoom:Zoom = new Zoom(this);
 						
 			this.addEventListener(MouseEvent.MOUSE_OVER, mouseHandler);
 			this.addEventListener(MouseEvent.MOUSE_OUT, mouseHandler);

@@ -51,9 +51,9 @@
 			pinX = this.localToGlobal(new Point()).x;			
 			
 			if (pinX > stageWidth / 2) {
-				pinTitle.x = -pinTitle.width - 10;
+				pinTitle.x = -pinTitle.width - 15;
 			} else {
-				pinTitle.x = 10;
+				pinTitle.x = 15;
 			}
 			
 			if (pinCourses.visible == false) {

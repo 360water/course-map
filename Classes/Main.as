@@ -29,6 +29,10 @@
 			this.addChild(map);
 			this.addChild(controls);
 			
+			// Add pan and zooming to the map
+			var pan:Pan = new Pan(map);
+			var zoom:Zoom = new Zoom(map);
+			
 			controls.addEventListener(MouseEvent.CLICK, clickHandler);
 			map.activePinChanged.add(activePinHandler);
 			
