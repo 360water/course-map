@@ -50,6 +50,7 @@
 		
 		// Handler for when the mouse is clicked
 		private function clickHandler(e:MouseEvent) {
+			trace(e.target);
 			if (e.target is Pin) {
 				toggleActivePin(e.target as Pin, e.type);								
 			} else if (e.target is Map) {

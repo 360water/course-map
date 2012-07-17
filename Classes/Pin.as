@@ -1,6 +1,7 @@
 ﻿package  {
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;	
+	import flash.geom.Point;
 	
 	public class Pin extends Sprite {
 		
@@ -11,25 +12,25 @@
 		private var pinLabel:String;
 		private var courses:Array;
 		private var id:int;
+		
+		private var stageWidth:int = StageManager.instance.stage.stageWidth;
+		private var stageHeight:int = StageManager.instance.stage.stageHeight;
+		private var pinX:int;
+		private var pinY:int;
 				
 		public function getPinFrame():int { return pinFrame; }
 		public function getPinLabel():String { return pinLabel; }
 		public function getCategoryId():int { return id; }
 
 		public function Pin() {
-			
 			setPinInformation();			
 			
-			pinTitle = new PinInformation(pinLabel);
-			pinTitle.x = 10;
-			pinTitle.y = -pinTitle.height / 2;					
+			pinTitle = new PinInformation(pinLabel);			
 			pinTitle.visible = false;
 			pinTitle.mouseEnabled = false;
 			this.addChild(pinTitle);
 					
-			pinCourses = new PinInformation(null, courses, id);
-			pinCourses.x = 10;
-			pinCourses.y = pinTitle.y + pinTitle.height;
+			pinCourses = new PinInformation(null, courses, id);						
 			pinCourses.visible = false;
 			this.addChild(pinCourses);			
 		}
@@ -45,24 +46,52 @@
 			}
 		}
 		
-		public function showTitle() {			
-			pinTitle.visible = true;			
+		public function showTitle() {
+			// Set pin position to varibles			
+			pinX = this.localToGlobal(new Point()).x;			
+			
+			if (pinX > stageWidth / 2) {
+				pinTitle.x = -pinTitle.width - 10;
+			} else {
+				pinTitle.x = 10;
+			}
+			
+			if (pinCourses.visible == false) {
+				pinTitle.y = -pinTitle.height / 2;
+			}
+			
+			pinTitle.visible = true;	
 		}
 		
 		public function hideTitle() {
 			pinTitle.visible = false;			
 		}
 		
-		public function showCourses() {			
+		public function showCourses() {
+			// Set the y postion so it fits in the view
+			var pinCoursesY = pinCourses.localToGlobal(new Point()).y;
+			
+			// Set pin courses to line up with the pin title
+			pinCourses.x = pinTitle.x;
+			
+			if (pinCoursesY + pinCourses.height >= stageHeight) {
+				pinCourses.y -= pinCoursesY + pinCourses.height - stageHeight;
+				pinTitle.y = pinCourses.y - pinTitle.height;
+			} else {
+				pinCourses.y = pinTitle.y + pinTitle.height;
+			}
+			
 			pinCourses.visible = true;
-			trace(this.y);
+			
 			if (pinTitle.visible == false) {
-					pinTitle.visible = true;						
+				pinTitle.visible = true;						
 			}
 		}
 		
 		public function hideCourses() {
-			pinCourses.visible = false;			
+			pinCourses.visible = false;
+			pinTitle.y = -pinTitle.height / 2;
+			pinCourses.y = pinTitle.y + pinTitle.height;
 		}
 	}	
 }
