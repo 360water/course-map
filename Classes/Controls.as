@@ -1,5 +1,7 @@
 ﻿package  {
 	import flash.display.MovieClip;	
+	import flash.events.MouseEvent;
+	import org.osflash.signals.Signal;
 	
 	public class Controls extends MovieClip {
 		
@@ -35,14 +37,13 @@
 			zoomControls.x = stageWidth - zoomControls.width - panControls.width - 30;
 			zoomControls.y = panControls.y + panControls.height * 0.5 - zoomControls.height * 0.5;
 			
-			
 			this.addChild(panControls);
 			this.addChild(zoomControls);
-			this.addChild(menu);
+			this.addChild(menu);					  
 		}
-		
-		public function changeMenuTitle(menuLabel:String = null) {
-			menu.changeMenuHeading(menuLabel);
+				
+		public function highLightMenuItem(menuLabel:String = null) {			
+			menu.highlightMenuItem(menuLabel);
 		}
 		
 		// Getters and Setters
@@ -56,6 +57,6 @@
 		
 		public function getMenu() {
 			return menu;
-		}		
+		}
 	}	
 }

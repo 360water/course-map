@@ -6,7 +6,7 @@
 		
 		// Menu Items
 		public static const MENU_ITEMS = new Array();
-		MENU_ITEMS.push({itemLabel:"Solids Contact", 
+		MENU_ITEMS.push({itemLabel:"Membranes Membranes Membranes Membranes Membranes Membranes", 
 						 pin:"pinSolidsContact",
 						 courses:['Membranes Membranes Membranes Membranes Membranes Membranes', 'Feed Pumps', 'Strainers', 'Reverse Flow Pumps'],
 						 highlightFrame:1,

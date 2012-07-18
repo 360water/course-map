@@ -34,6 +34,8 @@
 			var zoom:Zoom = new Zoom(map);
 			
 			controls.addEventListener(MouseEvent.CLICK, clickHandler);
+			controls.addEventListener(MouseEvent.MOUSE_OVER, mouseHandler);
+			controls.addEventListener(MouseEvent.MOUSE_OUT, mouseHandler);
 			map.activePinChanged.add(activePinHandler);
 			
 			// Get flashvars
@@ -49,8 +51,14 @@
 			}
 		}
 		
-		private function activePinHandler(heading:String) {			
-			controls.changeMenuTitle(heading);
+		private function mouseHandler(e:MouseEvent) {
+			if (e.target is MenuItem) {				
+				map.menuItemHovered(e.target.link, e.type);
+			}			
+		}
+		
+		private function activePinHandler(itemLabel:String) {			
+			controls.highLightMenuItem(itemLabel);
 		}
 	}	
 }

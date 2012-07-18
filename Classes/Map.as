@@ -14,6 +14,7 @@
 		public function Map() {
 			// Go to and stop at the first frame
 			highlights.visible = false;
+			highlights.mouseEnabled = false;
 			
 			// Create an array with the pins
 			setPins();
@@ -88,7 +89,7 @@
 					} else {						
 						activePin.hideCourses();
 						activePin = null;
-						activePinChanged.dispatch(C.MENU_HEADING);
+						activePinChanged.dispatch("");
 					}
 				} else if (type == "menu") {					
 					// Hide previous active pin
@@ -114,6 +115,7 @@
 					activePin.hideCourses();
 					highlights.visible = false;
 					activePin = null;
+					activePinChanged.dispatch("");
 				}
 			}
 		}
@@ -133,6 +135,17 @@
 				if (pins[i].name == pinName) {
 					pin = pins[i];					
 					toggleActivePin(pin, "menu");		
+				}
+			}			
+		}
+		
+		// Handler for when menu item is hovered over
+		public function menuItemHovered(pinName:String, type:String) {
+			var pin:Pin;
+			for (var i:int = 0; i < pins.length; i++) {
+				if (pins[i].name == pinName) {
+					pin = pins[i];					
+					toggleActivePin(pin, type);
 				}
 			}			
 		}

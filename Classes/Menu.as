@@ -2,7 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
-	import flash.display.Shape;
+	import flash.display.Shape;	
 
 	public class Menu extends MovieClip {
 
@@ -43,15 +43,19 @@
 			
 			menuContainer = new MovieClip;
 			
+			var heightSum:Number = -2;
+			
 			// Add menu items into the menu container
 			for (var i:int = 0; i < menuItems.length; i++) {
 				menuItem = new MenuItem(menuItems[i].itemLabel,menuItems[i].pin);
 				menuItems[i] = menuItem;				
-				menuItem.y = menuItem.height * i - (i + 1) * 2;				
+				menuItem.y = heightSum;				
 				menuContainer.addChild(menuItem);
 				menuObjects.push(menuItem);
+				heightSum += menuItem.height - 2;
 			}
 						
+			// Set the position of the menu container which holds the menu items
 			menuContainer.y = menuButton.height - menuContainer.height;
 			menuContainer.alpha = 0.9;
 			
@@ -131,9 +135,15 @@
 			menuClosing = true;
 		}
 		
-		// Change the menu heading
-		public function changeMenuHeading(label:String = C.MENU_HEADING) {
-			menuHeading.heading.text = label.toUpperCase();
+		// Highlight the selected menu item
+		public function highlightMenuItem(menuLabel:String = "") {					
+			for (var i:int = 0; i < menuObjects.length; i++) {				
+				if (menuObjects[i].label == menuLabel) {					
+					menuObjects[i].turnOnHighlight();
+				} else if (menuObjects[i].highlight) {					
+					menuObjects[i].turnOffHighlight();
+				}
+			}
 		}
 	}
 }
