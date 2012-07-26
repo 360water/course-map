@@ -2,6 +2,7 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.display.Shape;
 	import org.osflash.signals.Signal;
 	
 	public class Map extends MovieClip {
@@ -11,10 +12,10 @@
 		
 		public var activePinChanged:Signal;
 									
-		public function Map() {
+		public function Map() {			
 			// Go to and stop at the first frame
 			highlights.visible = false;
-			highlights.mouseEnabled = false;
+			highlights.mouseEnabled = false;			
 			
 			// Create an array with the pins
 			setPins();
@@ -133,8 +134,12 @@
 			var pin:Pin;
 			for (var i:int = 0; i < pins.length; i++) {
 				if (pins[i].name == pinName) {
-					pin = pins[i];					
-					toggleActivePin(pin, "menu");		
+					pin = pins[i];
+					if (activePin && activePin == pin) {
+						toggleActivePin();
+					} else {
+						toggleActivePin(pin, "menu");
+					}
 				}
 			}			
 		}
@@ -157,6 +162,17 @@
 				if (pins[i].getCategoryId() == id) {
 					pin = pins[i];					
 					toggleActivePin(pin, "menu");		
+				}
+			}			
+		}
+		
+		// Handler for when schematic button is clicked
+		public function schematicButtonClicked(pinName:String) {
+			var pin:Pin;
+			for (var i:int = 0; i < pins.length; i++) {
+				if (pins[i].name == pinName) {
+					pin = pins[i];					
+					toggleActivePin(pin, "menu");					
 				}
 			}			
 		}

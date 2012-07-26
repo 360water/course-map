@@ -46,17 +46,19 @@
 		// Mouse is being moved
 		private function mouseMovement(e:MouseEvent) {
 			
-			// If the mouse button is still down, adjust object position
-			if (e.buttonDown) {				
-				panObject.x +=  (stage.mouseX - xPos) * C.PAN_MOUSE_SPEED;
-				panObject.y +=  (stage.mouseY - yPos) * C.PAN_MOUSE_SPEED;
-				
-				constrainObject();
-			}				
-															
-			// Save new positions
-			xPos = stage.mouseX;
-			yPos = stage.mouseY;		
+			if (e.target == panObject) {
+				// If the mouse button is still down, adjust object position
+				if (e.buttonDown) {				
+					panObject.x +=  (stage.mouseX - xPos) * C.PAN_MOUSE_SPEED;
+					panObject.y +=  (stage.mouseY - yPos) * C.PAN_MOUSE_SPEED;
+					
+					constrainObject();
+				}				
+																
+				// Save new positions
+				xPos = stage.mouseX;
+				yPos = stage.mouseY;			
+			}
 		}
 		
 		// Pan buttons listener
@@ -90,16 +92,14 @@
 				panObject.y = 0;
 			}
 			
-			if (panObject.x <= -panObject.width + stage.stageWidth) {
-				panObject.x = -panObject.width + stage.stageWidth;
+			if (panObject.x <= stage.stageWidth - panObject.width) {
+				panObject.x = stage.stageWidth - panObject.width;
 			}
 			
 			if (panObject.y <= -panObject.height + stage.stageHeight) {
 				panObject.y = -panObject.height + stage.stageHeight;
 			}
 		}
-		
-		
 	}
 }
 		

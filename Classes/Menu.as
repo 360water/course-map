@@ -136,13 +136,17 @@
 		}
 		
 		// Highlight the selected menu item
-		public function highlightMenuItem(menuLabel:String = "") {					
+		public function highlightMenuItem(menuLabel:String = "") {			
 			for (var i:int = 0; i < menuObjects.length; i++) {				
 				if (menuObjects[i].label == menuLabel) {					
 					menuObjects[i].turnOnHighlight();
 				} else if (menuObjects[i].highlight) {					
 					menuObjects[i].turnOffHighlight();
 				}
+			}
+			
+			if (menuLabel == "") {
+				
 			}
 		}
 	}

@@ -1,9 +1,9 @@
 ﻿package  {
-	import flash.display.Sprite;
+	import flash.display.MovieClip;
 	import flash.events.MouseEvent;	
 	import flash.geom.Point;
 	
-	public class Pin extends Sprite {
+	public class Pin extends MovieClip {
 		
 		private var pinTitle:PinInformation;
 		private var pinCourses:PinInformation;
@@ -23,16 +23,31 @@
 		public function getCategoryId():int { return id; }
 
 		public function Pin() {
+			this.gotoAndStop(1);
+			
+			// Set pin position to varibles			
+			pinX = this.localToGlobal(new Point()).x;			
+			pinY = this.localToGlobal(new Point()).y;
+			
 			setPinInformation();			
 			
 			pinTitle = new PinInformation(pinLabel);			
 			pinTitle.visible = false;
 			pinTitle.mouseEnabled = false;
 			this.addChild(pinTitle);
+			if (pinTitle.width + pinX > stageWidth) {				
+				pinTitle.x = -pinTitle.width;
+			}
+			
 					
 			pinCourses = new PinInformation(null, courses, id);						
 			pinCourses.visible = false;
-			this.addChild(pinCourses);			
+			this.addChild(pinCourses);
+			pinCourses.x = pinTitle.x;
+			
+			if (pinCourses.height + pinY > stageHeight) {
+				pinCourses.y = -pinCourses.height;
+			}
 		}
 		
 		private function setPinInformation() {	
@@ -47,6 +62,7 @@
 		}
 		
 		public function showTitle() {
+			this.gotoAndStop(2);
 			// Set pin position to varibles			
 			pinX = this.localToGlobal(new Point()).x;			
 			
@@ -64,10 +80,13 @@
 		}
 		
 		public function hideTitle() {
+			this.gotoAndStop(1);
 			pinTitle.visible = false;			
 		}
 		
-		public function showCourses() {
+		public function showCourses() {			
+			this.gotoAndStop(2);
+			
 			// Set the y postion so it fits in the view
 			var pinCoursesY = pinCourses.localToGlobal(new Point()).y;
 			
@@ -89,9 +108,10 @@
 		}
 		
 		public function hideCourses() {
+			this.gotoAndStop(1);
 			pinCourses.visible = false;
 			pinTitle.y = -pinTitle.height / 2;
-			pinCourses.y = pinTitle.y + pinTitle.height;
+			//pinCourses.y = pinTitle.y + pinTitle.height;
 		}
 	}	
 }

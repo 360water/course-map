@@ -39,7 +39,7 @@
 			var format = new TextFormat();
 			format.color = 0xFFFFFF;
 			format.font = "Century Gothic";
-			format.size = 12;					
+			format.size = 10;					
 			format.leftMargin = 5;
 			format.rightMargin = 5;
 			
