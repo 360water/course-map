@@ -12,6 +12,7 @@
 		private var pinLabel:String;
 		private var courses:Array;
 		private var id:int;
+		private var postDisabled:Boolean;
 		
 		private var stageWidth:int = StageManager.instance.stage.stageWidth;
 		private var stageHeight:int = StageManager.instance.stage.stageHeight;
@@ -21,6 +22,7 @@
 		public function getPinFrame():int { return pinFrame; }
 		public function getPinLabel():String { return pinLabel; }
 		public function getCategoryId():int { return id; }
+		public function getPostDisabled():Boolean { return postDisabled; }
 
 		public function Pin() {
 			this.gotoAndStop(1);
@@ -57,6 +59,7 @@
 					pinLabel = C.MENU_ITEMS[i].itemLabel;
 					courses = C.MENU_ITEMS[i].courses;
 					id = C.MENU_ITEMS[i].categoryId;
+					postDisabled = C.MENU_ITEMS[i].postDisabled;
 				}				
 			}
 		}
@@ -87,11 +90,15 @@
 		public function showCourses() {			
 			this.gotoAndStop(2);
 			
+			pinCourses.y = pinTitle.y + pinTitle.height;
+			
 			// Set the y postion so it fits in the view
 			var pinCoursesY = pinCourses.localToGlobal(new Point()).y;
 			
 			// Set pin courses to line up with the pin title
 			pinCourses.x = pinTitle.x;
+			
+			
 			
 			if (pinCoursesY + pinCourses.height >= stageHeight) {
 				pinCourses.y -= pinCoursesY + pinCourses.height - stageHeight;

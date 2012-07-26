@@ -51,7 +51,7 @@
 			if (e.target is Pin) {
 				toggleActivePin(e.target as Pin, e.type);								
 			} else if (e.target is Map) {
-				toggleActivePin()
+				toggleActivePin();
 			}
 		}
 		
@@ -157,11 +157,11 @@
 		
 		// ID was passed in URL
 		public function idPassedIn(id:int) {
-			var pin:Pin;			
+			var pin:Pin;
 			for (var i:int = 0; i < pins.length; i++) {
-				if (pins[i].getCategoryId() == id) {
+				if (pins[i].getCategoryId() == id && !pins[i].getPostDisabled()) {
 					pin = pins[i];					
-					toggleActivePin(pin, "menu");		
+					toggleActivePin(pin, "menu");					
 				}
 			}			
 		}
@@ -171,8 +171,12 @@
 			var pin:Pin;
 			for (var i:int = 0; i < pins.length; i++) {
 				if (pins[i].name == pinName) {
-					pin = pins[i];					
-					toggleActivePin(pin, "menu");					
+					pin = pins[i];
+					if (activePin) {
+						toggleActivePin();
+					} else {
+						toggleActivePin(pin, "menu");
+					}
 				}
 			}			
 		}

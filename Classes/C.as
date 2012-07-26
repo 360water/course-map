@@ -35,7 +35,8 @@
 						 courses:['Raw Water Ozone Injection',
 								  'Raw Water Ozone Destruction'],
 						 highlightFrame:4,
-						 categoryId:0
+						 categoryId:1840,
+						 postDisabled: true
 						 });
 		MENU_ITEMS.push({itemLabel:"Ozone Off Gas Destruction", 
 						 pin:"ozoneDestruction",
@@ -66,7 +67,8 @@
 						 courses:['Pre-Filter East Ozone Injection', 
 								  'Pre-Filter West Ozone Injection'],
 						 highlightFrame:9,
-						 categoryId:0
+						 categoryId:1842,
+						 postDisabled: true
 						 });
 		MENU_ITEMS.push({itemLabel:"High Service and Backwash Pumping", 
 						 pin:"backwashPumping",
@@ -78,7 +80,7 @@
 						 pin:"highPressureWater",
 						 courses:['High Pressure Service Water'],
 						 highlightFrame:11,
-						 categoryId:1849
+						 categoryId:1849						 
 						 });
 		MENU_ITEMS.push({itemLabel:"Membrane Filtration", 
 						 pin:"membraneFiltration",
@@ -113,7 +115,8 @@
 						 courses:['Post Membrane Ozone Injection',
 								  'Post Membrane Ozone Destruction'],
 						 highlightFrame:15,
-						 categoryId:0
+						 categoryId:1840,
+						 postDisabled: true
 						 });
 		MENU_ITEMS.push({itemLabel:"Side-Stream Ozone Injection", 
 						 pin:"sideStreamOzone",

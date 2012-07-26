@@ -68,7 +68,13 @@
 			
 			// Get flashvars
 			if (stage.loaderInfo.parameters.id) {
-				map.idPassedIn(int(stage.loaderInfo.parameters.id));				
+				var id:int = int(stage.loaderInfo.parameters.id);
+				if (id != 0) {
+					map.visible = true;
+					controls.visible = true;
+					schematic.visible = false;
+					map.idPassedIn(id);					
+				}
 			}
 			
 		}
@@ -97,9 +103,8 @@
 		private function schematicHandler(pinName:String) {
 			map.visible = true;
 			controls.visible = true;
-			schematic.visible = false;
-			
 			map.schematicButtonClicked(pinName);
+			schematic.visible = false;
 		}
 		
 		private function switchButtonHandler(e:MouseEvent) {
