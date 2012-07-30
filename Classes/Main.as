@@ -86,6 +86,7 @@
 		}
 		
 		private function mouseHandler(e:MouseEvent) {
+			//if (e.target is MenuItem && !isPinActive) {
 			if (e.target is MenuItem && !isPinActive) {				
 				map.menuItemHovered(e.target.link, e.type);
 			}			

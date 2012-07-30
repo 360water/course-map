@@ -98,13 +98,11 @@
 			// Set pin courses to line up with the pin title
 			pinCourses.x = pinTitle.x;
 			
-			
-			
 			if (pinCoursesY + pinCourses.height >= stageHeight) {
 				pinCourses.y -= pinCoursesY + pinCourses.height - stageHeight;
-				pinTitle.y = pinCourses.y - pinTitle.height;
+				pinTitle.y = pinCourses.y - pinTitle.height + 1;
 			} else {
-				pinCourses.y = pinTitle.y + pinTitle.height;
+				pinCourses.y = pinTitle.y + pinTitle.height - 1;
 			}
 			
 			pinCourses.visible = true;
@@ -115,10 +113,41 @@
 		}
 		
 		public function hideCourses() {
-			this.gotoAndStop(1);
+			//this.gotoAndStop(1);
 			pinCourses.visible = false;
 			pinTitle.y = -pinTitle.height / 2;
 			//pinCourses.y = pinTitle.y + pinTitle.height;
+		}
+		
+		public function infoPlacement() {
+			// Set pin position to varibles			
+			pinX = this.localToGlobal(new Point()).x;
+			pinY = this.localToGlobal(new Point()).y;
+			
+			if (pinX >= 0 && pinX <= stageWidth && pinY >= 0 && pinY <= stageHeight) {			
+				if (pinX > stageWidth / 2) {
+					pinTitle.x = -pinTitle.width - 15;
+				} else {
+					pinTitle.x = 15;
+				}
+				
+				pinTitle.y = -pinTitle.height / 2
+				
+				pinCourses.y = pinTitle.y + pinTitle.height - 1;
+				
+				// Set the y postion so it fits in the view
+				var pinCoursesY = pinCourses.localToGlobal(new Point()).y;
+				
+				// Set pin courses to line up with the pin title
+				pinCourses.x = pinTitle.x;
+				
+				if (pinCoursesY + pinCourses.height >= stageHeight) {
+					pinCourses.y -= pinCoursesY + pinCourses.height - stageHeight;
+					pinTitle.y = pinCourses.y - pinTitle.height + 1;
+				} else {
+					pinCourses.y = pinTitle.y + pinTitle.height - 1;
+				}
+			}					
 		}
 	}	
 }

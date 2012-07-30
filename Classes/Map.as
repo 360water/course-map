@@ -9,13 +9,18 @@
 		
 		private var pins:Array;
 		private var activePin:Pin;
+		private var tempX:Number;
+		private var tempY:Number;
 		
 		public var activePinChanged:Signal;
 									
 		public function Map() {			
 			// Go to and stop at the first frame
 			highlights.visible = false;
-			highlights.mouseEnabled = false;			
+			highlights.mouseEnabled = false;
+			
+			tempX = this.x;
+			tempY = this.y;
 			
 			// Create an array with the pins
 			setPins();
@@ -23,8 +28,17 @@
 			this.addEventListener(MouseEvent.MOUSE_OVER, mouseHandler);
 			this.addEventListener(MouseEvent.MOUSE_OUT, mouseHandler);
 			this.addEventListener(MouseEvent.CLICK, clickHandler);
+			this.addEventListener(MouseEvent.MOUSE_DOWN, clickHandler);
+			this.addEventListener(MouseEvent.MOUSE_UP, clickHandler);
+			this.addEventListener(MouseEvent.MOUSE_WHEEL, zoomHandler);
 			
 			activePinChanged = new Signal(String);
+		}
+		
+		private function zoomHandler(e:MouseEvent) {
+			if (activePin) {
+				activePin.infoPlacement();
+			}
 		}
 		
 		// Selects the pins and adds them to an array		
@@ -41,8 +55,8 @@
 		
 		// Handler for when mouse moves over or away from object
 		private function mouseHandler(e:MouseEvent) {
-			if (e.target is Pin) {				
-				toggleActivePin(e.target as Pin, e.type);				
+			if (e.target is Pin && !activePin) {				
+				toggleActivePin(e.target as Pin, e.type);
 			}
 		}
 		
@@ -51,7 +65,18 @@
 			if (e.target is Pin) {
 				toggleActivePin(e.target as Pin, e.type);								
 			} else if (e.target is Map) {
-				toggleActivePin();
+				if (e.type == "mouseDown") {
+					tempX = this.x;
+					tempY = this.y;					
+				} else if (e.type == "mouseUp") {					
+					if (tempX == this.x && tempY == this.y) {
+						toggleActivePin();
+					} else {
+						if (activePin) {
+							activePin.infoPlacement();
+						}
+					}
+				}
 			}
 		}
 		
@@ -61,19 +86,21 @@
 				if (type == "mouseOver") {
 					
 					// If different from active pin, remove active pn
-					if (pin != activePin && activePin) {
-						activePin.hideTitle();
-						activePin.hideCourses();
-						activePin == null;
-						activePinChanged.dispatch(C.MENU_HEADING);
-					}
+					//if (pin != activePin && activePin) {
+						//activePin.hideTitle();
+						//activePin.hideCourses();
+						//activePin == null;
+						//activePinChanged.dispatch(C.MENU_HEADING);
+					//}
 					
 					// Show pin title and highlights
 					pin.showTitle();
 					highlights.visible = true;
 					highlights.gotoAndStop(pin.getPinFrame());
 					this.setChildIndex(pin, this.numChildren - 1);
-					
+					if (activePin) {
+						this.setChildIndex(activePin, this.numChildren - 1);								
+					}
 				} else if (type == "mouseOut" && pin != activePin) {
 					// Hide pin title and highlights
 					pin.hideTitle();
@@ -82,9 +109,17 @@
 				} else if (type == "click") {
 					// If new pin, set as activePin
 					if (pin != activePin) {
+						if (activePin) {
+							activePin.hideTitle();
+							activePin.hideCourses();
+						}
+						
 						activePin = pin;
+						this.setChildIndex(activePin, this.numChildren - 1);
 						activePin.showTitle();
 						activePin.showCourses();
+						highlights.visible = true;
+						highlights.gotoAndStop(activePin.getPinFrame());
 						activePinChanged.dispatch(activePin.getPinLabel());
 					// If already active pin, reset active pin
 					} else {						
@@ -94,20 +129,19 @@
 					}
 				} else if (type == "menu") {					
 					// Hide previous active pin
-					if (activePin) {
+					if (activePin) {						
 						activePin.hideTitle();
 						activePin.hideCourses();
 					}
 					
 					// Set new active pin and show information					
 					activePin = pin;
-					activePinChanged.dispatch(pin.getPinLabel());
-					
-					activePin.showTitle();
-					activePin.showCourses();
+					activePinChanged.dispatch(pin.getPinLabel());					
 					highlights.visible = true;
-					highlights.gotoAndStop(pin.getPinFrame());
-					this.setChildIndex(pin, this.numChildren - 1);					
+					highlights.gotoAndStop(activePin.getPinFrame());
+					activePin.showTitle();
+					activePin.showCourses();					
+					this.setChildIndex(activePin, this.numChildren - 1);
 				}				
 			} else {
 				// If active pin exists, reset it
@@ -145,7 +179,7 @@
 		}
 		
 		// Handler for when menu item is hovered over
-		public function menuItemHovered(pinName:String, type:String) {
+		public function menuItemHovered(pinName:String, type:String) {			
 			var pin:Pin;
 			for (var i:int = 0; i < pins.length; i++) {
 				if (pins[i].name == pinName) {
