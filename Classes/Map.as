@@ -3,6 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.display.Shape;
+	import flash.geom.Point;
 	import org.osflash.signals.Signal;
 	
 	public class Map extends MovieClip {
@@ -83,16 +84,7 @@
 		// Sets/unsets the active pin
 		private function toggleActivePin(pin:Pin = null, type:String = null) {
 			if (pin) {
-				if (type == "mouseOver") {
-					
-					// If different from active pin, remove active pn
-					//if (pin != activePin && activePin) {
-						//activePin.hideTitle();
-						//activePin.hideCourses();
-						//activePin == null;
-						//activePinChanged.dispatch(C.MENU_HEADING);
-					//}
-					
+				if (type == "mouseOver") {															
 					// Show pin title and highlights
 					pin.showTitle();
 					highlights.visible = true;
@@ -117,7 +109,7 @@
 						activePin = pin;
 						this.setChildIndex(activePin, this.numChildren - 1);
 						activePin.showTitle();
-						activePin.showCourses();
+						activePin.showCourses();						
 						highlights.visible = true;
 						highlights.gotoAndStop(activePin.getPinFrame());
 						activePinChanged.dispatch(activePin.getPinLabel());
@@ -131,11 +123,26 @@
 					// Hide previous active pin
 					if (activePin) {						
 						activePin.hideTitle();
-						activePin.hideCourses();
+						activePin.hideCourses();						
 					}
 					
 					// Set new active pin and show information					
 					activePin = pin;
+					
+					var pinX = activePin.localToGlobal(new Point()).x;
+					var pinY = activePin.localToGlobal(new Point()).y;										
+					
+					if (pinX > StageManager.instance.stage.stageWidth ||
+						pinX < 0 ||
+						pinY > StageManager.instance.stage.stageHeight ||
+						pinY < 0) {
+							this.scaleX = 1;
+							this.scaleY = 1;
+							this.x = 0;
+							this.y = 0;					
+							this.scaleChildren();
+						}
+					
 					activePinChanged.dispatch(pin.getPinLabel());					
 					highlights.visible = true;
 					highlights.gotoAndStop(activePin.getPinFrame());
@@ -168,12 +175,8 @@
 			var pin:Pin;
 			for (var i:int = 0; i < pins.length; i++) {
 				if (pins[i].name == pinName) {
-					pin = pins[i];
-					if (activePin && activePin == pin) {
-						toggleActivePin();
-					} else {
-						toggleActivePin(pin, "menu");
-					}
+					pin = pins[i];					
+					toggleActivePin(pin, "menu");					
 				}
 			}			
 		}
@@ -205,12 +208,8 @@
 			var pin:Pin;
 			for (var i:int = 0; i < pins.length; i++) {
 				if (pins[i].name == pinName) {
-					pin = pins[i];
-					if (activePin) {
-						toggleActivePin();
-					} else {
-						toggleActivePin(pin, "menu");
-					}
+					pin = pins[i];					
+					toggleActivePin(pin, "menu");					
 				}
 			}			
 		}

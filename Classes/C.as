@@ -152,7 +152,7 @@
 
 		// Constants for zooming
 		public static const MIN_ZOOM:Number = 1;
-		public static const MAX_ZOOM:Number = 3.5;
+		public static const MAX_ZOOM:Number = 4;
 		public static const ZOOM_MOUSE_SPEED:Number = 0.1;		// Higher is larger zoom
 		public static const ZOOM_BUTTON_SPEED:Number = 0.5;		// Higher is larger zoom
 		
