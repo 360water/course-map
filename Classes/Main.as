@@ -3,6 +3,7 @@
 	import flash.events.MouseEvent;
 	import flash.display.LoaderInfo;
 	import org.osflash.signals.Signal;
+	import com.spikything.utils.MouseWheelTrap;
 	
 	public class Main extends MovieClip {
 						
@@ -22,6 +23,8 @@
 		var isPinActive:Boolean;
 				
 		public function Main() {
+			
+			MouseWheelTrap.setup(stage);
 			
 			// Create a singleton of the stage
 			StageManager.instance.stage = stage;			

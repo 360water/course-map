@@ -1,7 +1,9 @@
 ﻿package  {
 	import flash.display.MovieClip;
 	import flash.display.Stage;
-	import flash.events.MouseEvent;	
+	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
+	import flash.geom.Point;
 	
 	public class Zoom {
 		
@@ -11,11 +13,14 @@
 		// Stage object
 		private var stage:Stage;
 		
+		// Browser
+		private var browser:String;
+		
 		// Set the controls
 		private var controls:Controls;							
 			
 		// Constructor
-		public function Zoom(object:MovieClip) {			
+		public function Zoom(object:MovieClip) {
 			// Set the stage
 			stage = StageManager.instance.stage;
 			
@@ -26,17 +31,20 @@
 			zoomObject = object;			
 			
 			// Add event listener for the mouse wheel
-			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseZoom);
+			zoomObject.addEventListener(MouseEvent.MOUSE_WHEEL, mouseZoom);
 			
 			if (controls.zoomControls) {
 				controls.zoomControls.zoomInBtn.addEventListener(MouseEvent.CLICK, zoomIn);
 				controls.zoomControls.zoomOutBtn.addEventListener(MouseEvent.CLICK, zoomOut);
 			}
+			
+			ExternalInterface.addCallback("handleWheel", handleWheel);
+			//ExternalInterface.addCallback("getBroswer", getBrowser);
 		}
 		
 		// Detect movement of the mouse wheel
 		private function mouseZoom(e:MouseEvent) {
-			if (e.target is Map) {			
+			if (e.target is Map) {				
 				// Set the initial zoomObject size
 				var tempSizeX:Number = zoomObject.width;
 				var tempSizeY:Number = zoomObject.height;
@@ -143,7 +151,13 @@
 			zoomObject.x -= scaleChange * stage.stageWidth / 2;
 			zoomObject.y -= scaleChange * stage.stageHeight / 2;
 		}
-		
-		
+				
+		public function handleWheel(event:Object): void {
+			var mEvent:MouseEvent = new MouseEvent(MouseEvent.MOUSE_WHEEL, true, false, 
+												   zoomObject.mouseX, zoomObject.mouseY, 
+												   zoomObject, event.ctrlKey, event.altKey, 
+												   event.shiftKey, false, -Number(event.delta));
+			zoomObject.dispatchEvent(mEvent);								
+		}
 	}	
 }
